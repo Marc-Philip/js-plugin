@@ -1,4 +1,3 @@
-const {initialize} = require("./plugin");
 var _plugins = [];
 var _byName = {};
 var _cache = {};
