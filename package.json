@@ -1,0 +1,16 @@
+{
+  "name": "js-plugin",
+  "version": "1.1.1",
+  "repository": "Marc-Philip/js-plugin",
+  "description": "Fork of the https://github.com/supnate/js-plugin project with support for 'plugin' HTML attributes & measures to prevent race-conditions.",
+  "main": "plugin.js",
+  "types": "plugin.d.ts",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "files": [
+    "plugin.js",
+    "plugin.d.ts"
+  ],
+  "dependencies": {}
+}
