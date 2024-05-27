@@ -135,9 +135,9 @@ module.exports = {
         return method.apply(_get(p, obj), args);
       } catch (err) {
         // When a plugin failed, doesn't break the app
-        console.log('Failed to invoke plugin: ' + p.name + '!' + prop);
+        console.error('Failed to invoke plugin: ' + p.name + '!' + prop);
         if (throws) throw err;
-        else console.log(err);
+        else console.error(err);
       } finally {
         isDebug && console.log('After ', p.name, prop, args);
       }
