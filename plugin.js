@@ -1,3 +1,4 @@
+const {initialize} = require("./plugin");
 var _plugins = [];
 var _byName = {};
 var _cache = {};
@@ -68,9 +69,6 @@ module.exports = {
     });
     _plugins.splice(pos, 0, p);
     _byName[p.name] = p;
-    if (p.initialize) {
-      p.initialize();
-    }
   },
 
   unregister: function (name) {
@@ -147,6 +145,7 @@ module.exports = {
       return null;
     });
   },
+
   sort: function (arr, sortProp) {
     // A helper method to sort an array according to 'order' (or by sortProp) property of the array element.
     sortProp = sortProp || 'order';
@@ -155,5 +154,28 @@ module.exports = {
       var order2 = b.hasOwnProperty(sortProp) ? b[sortProp] : 1000000;
       return order1 - order2;
     });
-  }
+  },
+
+  initialize: function () {
+    _dom_ready(() => {
+      _plugins.forEach(p => {
+        if (p.initializeWithSelector) {
+          _selector(p.name, $node => {
+            try {
+              p.initializeWithSelector($node);
+            } catch (error) {
+              console.error(`Initialization of plugin "${p.name}" with selector failed: `, error);
+            }
+          });
+        } else if (p.initialize) {
+          // Standard initialization method
+          try {
+            p.initialize();
+          } catch (error) {
+            console.error(`Initialization of plugin "${p.name}" failed: `, error);
+          }
+        }
+      });
+    });
+  },
 };

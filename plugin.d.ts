@@ -5,6 +5,7 @@ export interface ExtensionPoint {
 export interface Plugin {
   name: string;
   initialize?: () => void;
+  initializeWithSelector?: (element: HTMLElement) => void;
 
   /**
    * ExtensionPoint can be nested, e.g. 'menu.processMenuItems'
